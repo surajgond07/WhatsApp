@@ -25,7 +25,7 @@
             android:src="@drawable/whatsapp" />
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/etUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -37,7 +37,7 @@
             android:padding="9dp" />
 
         <EditText
-            android:id="@+id/editTextTextEmailAddress"
+            android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -48,7 +48,7 @@
             android:padding="9dp" />
 
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -66,15 +66,18 @@
             android:gravity="right"
             android:padding="5dp"
             android:text="Already have account"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="@color/lightBlack"/>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_signUp"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:padding="15dp"
             android:text="SIGN UP"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
             app:cornerRadius="4dp" />
 
         <LinearLayout
@@ -84,7 +87,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btn_google"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="4dp"
@@ -98,7 +101,7 @@
                 app:cornerRadius="4dp" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/btn_facebook"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
@@ -108,13 +111,14 @@
                 android:padding="15dp"
                 android:text="Facebook"
                 android:textSize="18sp"
+                android:textColor="@color/white"
                 app:cornerRadius="4dp" />
 
 
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/signUPPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"

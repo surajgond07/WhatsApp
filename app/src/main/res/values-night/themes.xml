@@ -1,6 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.WhatsApp" parent="Theme.Material3.DayNight.NoActionBar">
+<!--    <style name="Base.Theme.WhatsApp" parent="Theme.Material3.DayNight.NoActionBar">-->
+    <style name="Base.Theme.WhatsApp" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
 
@@ -11,5 +12,6 @@
 
         <!-- Secondary brand color -->
         <item name="colorOnSecondary">@color/black</item>
+
     </style>
 </resources>

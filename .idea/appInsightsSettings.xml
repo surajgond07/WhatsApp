@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.surajinfotech.whatsapp" />
+                  <option name="mobileSdkAppId" value="1:451877782353:android:5336ea397974ce748ec970" />
+                  <option name="projectId" value="suraj-infotech-whatsapp" />
+                  <option name="projectNumber" value="451877782353" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

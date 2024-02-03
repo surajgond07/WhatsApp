@@ -19,6 +19,5 @@ ActivitySignUpBinding binding;
         binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
     }
 }

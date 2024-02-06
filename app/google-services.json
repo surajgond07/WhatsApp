@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "451877782353",
+    "project_id": "suraj-infotech-whatsapp",
+    "storage_bucket": "suraj-infotech-whatsapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:451877782353:android:5336ea397974ce748ec970",
+        "android_client_info": {
+          "package_name": "com.surajinfotech.whatsapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSzfeDvmm_4mJDJWq7EXCda8lA3NAfBGI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

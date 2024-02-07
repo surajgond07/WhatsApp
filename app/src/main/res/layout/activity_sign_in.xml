@@ -61,7 +61,7 @@
             android:textColor="@color/lightBlack"/>
 
         <Button
-            android:id="@+id/btn_signIn"
+            android:id="@+id/btnSignIn"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -79,10 +79,10 @@
                 android:id="@+id/btn_google"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="4dp"
+                android:layout_marginEnd="4dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/white"
-                android:drawableLeft="@drawable/google"
+                android:drawableStart="@drawable/google"
                 android:padding="15dp"
                 android:text="Google"
                 android:textColor="@color/black"

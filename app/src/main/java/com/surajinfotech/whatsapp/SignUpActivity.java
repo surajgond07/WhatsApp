@@ -1,9 +1,10 @@
 package com.surajinfotech.whatsapp;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -22,9 +23,7 @@ public class SignUpActivity extends AppCompatActivity {
 ActivitySignUpBinding binding;
 
     private FirebaseAuth auth;
-
     FirebaseDatabase database;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +35,8 @@ ActivitySignUpBinding binding;
         auth = FirebaseAuth.getInstance();
 
         database = FirebaseDatabase.getInstance();
+
+
 
         binding.btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override

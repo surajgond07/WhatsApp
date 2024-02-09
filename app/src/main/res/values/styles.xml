@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="statusBarColor">#095049</color> <!-- Example color for the status bar -->
+<!--    <color name="actionBarColor">#4CAF50</color>-->   <!-- Example color for the action bar -->
+
+    <!-- Define text color for action bar -->
+    <color name="actionBarTextColor">#FFFFFF</color> <!-- Example color for action bar text -->
+
+    <!-- Define color for action bar menu items -->
+    <color name="actionBarMenuItemColor">#FFFFFF</color> <!-- Example color for action bar menu items -->
+</resources>

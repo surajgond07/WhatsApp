@@ -12,6 +12,17 @@
 
         <!-- Secondary brand color -->
         <item name="colorOnSecondary">@color/black</item>
+
+        <!-- Set status bar color -->
+        <item name="android:statusBarColor">@color/statusBarColor</item>
+
+        <!-- Set action bar (Toolbar) color -->
+<!--        <item name="android:colorPrimary">@color/actionBarColor</item>-->
+        <!-- Set text color for action bar title -->
+        <item name="android:textColorPrimary">@color/actionBarTextColor</item>
+
+        <!-- Set color for action bar menu items -->
+        <item name="android:textColorSecondary">@color/actionBarMenuItemColor</item>
     </style>
 
     <style name="Theme.WhatsApp" parent="Base.Theme.WhatsApp" />

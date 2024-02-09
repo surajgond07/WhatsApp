@@ -13,5 +13,8 @@
         <!-- Secondary brand color -->
         <item name="colorOnSecondary">@color/black</item>
 
+        <!-- Set status bar color -->
+        <item name="android:statusBarColor">@color/statusBarColor</item>
+
     </style>
 </resources>

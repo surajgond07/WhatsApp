@@ -3,11 +3,11 @@
 
 
     <item
-        android:id="@+id/settings"
+        android:id="@+id/menu_settings"
         android:title="Settings" />
 
     <item
-        android:id="@+id/logout"
+        android:id="@+id/menu_logout"
         android:title="Logout" />
 
 </menu>

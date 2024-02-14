@@ -8,10 +8,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.identity.BeginSignInRequest;
+import com.google.android.gms.auth.api.identity.Identity;
+import com.google.android.gms.auth.api.identity.SignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.common.api.ApiException;
+
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.surajinfotech.whatsapp.databinding.ActivitySignInBinding;
 
 public class SignInActivity extends AppCompatActivity {
@@ -27,9 +36,27 @@ public class SignInActivity extends AppCompatActivity {
        setContentView(binding.getRoot());
 
        // Firebase Authentication
+//        private static final int REQ_ONE_TAP = 2;
+         final int REQ_ONE_TAP = 2;
         auth = FirebaseAuth.getInstance();
 
-       binding.btnSignIn.setOnClickListener(new View.OnClickListener() {
+       // configure Google SignIn
+        BeginSignInRequest signInRequest = BeginSignInRequest.builder()
+                .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+                        .setSupported(true)
+                        // Your server's client ID, not your Android client ID.
+                        .setServerClientId(getString(R.string.default_web_client_id))
+                        // Only show accounts previously used to sign in.
+                        .setFilterByAuthorizedAccounts(true)
+                        .build())
+                .build();
+
+
+
+
+
+        // OnClick Listener Setup
+        binding.btnSignIn.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
 
@@ -70,4 +97,7 @@ public class SignInActivity extends AppCompatActivity {
            startActivity(intent);
        }
     }
+
+   // Google SignIn Activity 2nd Step
+
 }

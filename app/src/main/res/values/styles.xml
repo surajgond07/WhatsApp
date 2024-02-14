@@ -8,5 +8,6 @@
     <color name="actionBarTextColor">#FFFFFF</color> <!-- Example color for action bar text -->
 
     <!-- Define color for action bar menu items -->
-    <color name="actionBarMenuItemColor">#FFFFFF</color> <!-- Example color for action bar menu items -->
+    <color name="actionBarMenuItemColor">#FFFFFF</color>
+    <!-- Example color for action bar menu items -->
 </resources>

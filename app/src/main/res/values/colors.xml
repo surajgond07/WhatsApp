@@ -18,4 +18,8 @@
     <color name="lightGreen">#E5FFCC</color>
 
     <color name="lightBlack">#343131</color>
+
+<!--    <color name="actionBarMenuItemColor">#FFFFFF</color>-->
+    <!-- Example color for action bar menu items -->
+
 </resources>

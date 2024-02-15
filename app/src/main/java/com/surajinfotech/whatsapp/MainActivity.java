@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.surajinfotech.whatsapp.Adapters.FragmentsAdapter;
 import com.surajinfotech.whatsapp.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         auth = FirebaseAuth.getInstance();
+
+        // Binding on ViewPager
+        binding.viewPager.setAdapter(new FragmentsAdapter(getSupportFragmentManager()));
+        binding.tabLayout.setupWithViewPager(binding.viewPager);
     }
     // bringing menu on main page
 

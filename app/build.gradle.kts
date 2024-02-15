@@ -53,6 +53,10 @@ dependencies {
     //  dependency for the Google Play services library and specify its version
     implementation("com.google.android.gms:play-services-auth:20.7.0")
 
+    // Circle Image View from Gibhub
+    // https://github.com/hdodenhof/CircleImageView
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
+
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

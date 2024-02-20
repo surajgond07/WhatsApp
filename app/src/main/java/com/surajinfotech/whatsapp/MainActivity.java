@@ -51,19 +51,11 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_custom, menu);
 
         // Apply text color to action bar menu items
-//        for (int i = 0; i< menu.size(); i++){
-//            MenuItem menuItem = menu.getItem(i);
-//            applyMenuItemTextColor(menuItem, R.color.actionBarMenuItemColor);
-//        }
+
         return super.onCreateOptionsMenu(menu);
 //        return true;
     }
 
-//    private void applyMenuItemTextColor(MenuItem menuItem, int colorResId){
-//        SpannableString spannableString = new SpannableString(menuItem.getTitle());
-//        spannableString.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, colorResId)), 0, spannableString.length(), 0);
-//        menuItem.setTitle(spannableString);
-//    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
 import com.surajinfotech.whatsapp.Models.Users;
 import com.surajinfotech.whatsapp.R;
 
@@ -18,22 +19,17 @@ import java.util.ArrayList;
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.viewHolder>{
 
     ArrayList<Users> list;
-    private android.content.Context Context;
+    private Context context; // Keep only this declaration
 
     public UsersAdapter(ArrayList<Users> list, Context context) {
         this.list = list;
         this.context = context;
     }
 
-    Context context;
-
-
     @NonNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-    
-        View view = LayoutInflater.from(Context).inflate(R.layout.sample_show_user, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.sample_show_user, parent, false);
         return new viewHolder(view);
     }
 
@@ -41,11 +37,22 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.viewHolder>{
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         Users users = list.get(position);
 
+        String profilePicUrl = users.getProfilePic();
+
+        // Check if profilePicUrl is valid and not null
+        if (profilePicUrl != null && !profilePicUrl.isEmpty()) {
+            Picasso.get().load(profilePicUrl).placeholder(R.drawable.avatar).into(holder.image);
+        } else {
+            // Handle the case where profilePicUrl is null or empty
+            holder.image.setImageResource(R.drawable.avatar); // Use the placeholder directly
+        }
+
+        holder.userName.setText(users.getUserName());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return list.size();
     }
 
     public class viewHolder extends RecyclerView.ViewHolder {

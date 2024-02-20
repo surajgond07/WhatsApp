@@ -57,6 +57,10 @@ dependencies {
     // https://github.com/hdodenhof/CircleImageView
     implementation ("de.hdodenhof:circleimageview:3.1.0")
 
+    // Picasso for bringing Image through the net from Firebase
+    // https://github.com/square/picasso
+    implementation ("com.squareup.picasso:picasso:2.8")
+
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

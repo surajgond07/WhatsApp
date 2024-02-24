@@ -12,6 +12,8 @@ public class Users {
         this.lastMessage = lastMessage;
     }
 
+
+
     // Empty constructor for Firebase
     public Users(){}
 
@@ -24,6 +26,14 @@ public class Users {
     }
 
     // Setter & Getter
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
     public String getProfilePic() {
         return profilePic;
     }
@@ -56,13 +66,6 @@ public class Users {
         this.password = password;
     }
 
-    public String getUserId(String key) {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
     public String getLastMessage() {
         return lastMessage;

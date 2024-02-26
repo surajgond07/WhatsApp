@@ -68,7 +68,7 @@
                 android:id="@+id/profile_image"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:layout_marginStart="3dp"
+                android:layout_marginStart="1dp"
                 android:padding="5dp"
                 android:src="@drawable/avatar"
                 app:civ_border_color="#FF000000"

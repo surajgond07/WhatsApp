@@ -16,7 +16,8 @@
     <color name="chat_background">#A9A9A9</color>
     <color name="chat_hint_color">#989595</color>
     <color name="fb_color">#3C5793</color>
-    <color name="lightGreen">#E5FFCC</color>
+
+    <color name="lightGreen">#E7FFDB</color>
 
     <color name="lightBlack">#343131</color>
 

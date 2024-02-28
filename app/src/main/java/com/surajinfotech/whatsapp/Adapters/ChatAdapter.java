@@ -19,6 +19,8 @@ public class ChatAdapter extends RecyclerView.Adapter {
 
     ArrayList<MessageModel> messageModels;
     Context context;
+
+    // assign variable for sender and receiver view type
     int SENDER_VIEW_TYPE = 1;
     int RECEIVER_VIEW_TYPE = 2;
 
@@ -33,7 +35,7 @@ public class ChatAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
+        // condition for sender view type
         if (viewType == SENDER_VIEW_TYPE)
         {
             View view = LayoutInflater.from(context).inflate(R.layout.sample_sender, parent, false);
@@ -48,6 +50,7 @@ public class ChatAdapter extends RecyclerView.Adapter {
     }
 
     // creating separate method
+    // identify view types which for who is user login that is sender_view_type
     @Override
     public int getItemViewType(int position) {
 
@@ -66,7 +69,17 @@ public class ChatAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        // setting data
+        // identify and setting data msg on view holder  for sender
+        MessageModel messageModel = messageModels.get(position);
+        if (holder.getClass() == SenderViewHolder.class){
+            ((SenderViewHolder)holder).senderMsg.setText(messageModel.getMessage());
+
+        }
+
+        else {
+            // show receiver msg
+            ((ReceiverViewHolder)holder).receiverMsg.setText(messageModel.getMessage());
+        }
 
     }
 

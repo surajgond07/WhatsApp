@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.surajinfotech.whatsapp.ChatDetailActivity;
+import com.surajinfotech.whatsapp.Models.MessageModel;
 import com.surajinfotech.whatsapp.Models.Users;
 import com.surajinfotech.whatsapp.R;
 
@@ -20,12 +21,17 @@ import java.util.ArrayList;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.viewHolder>{
 
-    ArrayList<Users> list;
-    private Context context; // Keep only this declaration
+    private ArrayList<Users> list;
+    private Context context;
+    private String currentUserId; // Add a variable to store the current user ID
 
     public UsersAdapter(ArrayList<Users> list, Context context) {
         this.list = list;
         this.context = context;
+        this.currentUserId = currentUserId; // Initialize the current user ID
+    }
+
+    public UsersAdapter(ArrayList<MessageModel> messageModels, ChatDetailActivity context) {
     }
 
     @NonNull
@@ -39,24 +45,29 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.viewHolder>{
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         Users users = list.get(position);
 
+        // Exclude the current user from the list
+        if (users.getUserId().equals(currentUserId)) {
+            holder.itemView.setVisibility(View.GONE); // Hide the item view if it's the current user
+            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0)); // Set layout params to 0 to prevent it from taking up space
+            return; // Skip further processing
+        }
+
         String profilePicUrl = users.getProfilePic();
 
-        // Check if profilePicUrl is valid and not null
+        // Load user profile picture using Picasso
         if (profilePicUrl != null && !profilePicUrl.isEmpty()) {
             Picasso.get().load(profilePicUrl).placeholder(R.drawable.avatar).into(holder.image);
         } else {
-            // Handle the case where profilePicUrl is null or empty
-            holder.image.setImageResource(R.drawable.avatar); // Use the placeholder directly
+            holder.image.setImageResource(R.drawable.avatar);
         }
 
         holder.userName.setText(users.getUserName());
 
-        // sending username & image to next activity
+        // Send user to ChatDetailActivity on item click
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ChatDetailActivity.class);
-//                using put extra
                 intent.putExtra("userId", users.getUserId());
                 intent.putExtra("profilePic", users.getProfilePic());
                 intent.putExtra("username", users.getUserName());
@@ -74,6 +85,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.viewHolder>{
 
         ImageView image;
         TextView userName, lastMessage;
+
         public viewHolder(@NonNull View itemView) {
             super(itemView);
 

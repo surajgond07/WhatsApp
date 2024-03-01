@@ -1,5 +1,6 @@
 package com.surajinfotech.whatsapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -9,7 +10,10 @@ import android.view.View;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import com.surajinfotech.whatsapp.Adapters.ChatAdapter;
 import com.surajinfotech.whatsapp.Models.MessageModel;
@@ -72,25 +76,44 @@ public class ChatDetailActivity extends AppCompatActivity {
 
         final String senderRoom = senderId + receiveId;
         final String receiverRoom = receiveId + senderId;
-        binding.send.setOnClickListener(new View.OnClickListener() {
+
+        // getting data from Firebase
+        database.getReference().child("chats")
+                        .child(senderRoom)
+                        .addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                messageModels.clear();
+                                for (DataSnapshot dataSnapshot1 : snapshot.getChildren())
+                                {
+                                    // getting data from Message Model
+                                    MessageModel model = dataSnapshot1.getValue(MessageModel.class);
+                                    messageModels.add(model);
+                                }
+                                chatAdapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+        binding.send.setOnClickListener(new View.OnClickListener()  {
             @Override
             public void onClick(View v) {
 
                 // setup chat message
 
                 String message = binding.etMessage.getText().toString();
-
                 //getting date & timestamp
-
                 final MessageModel model = new MessageModel(senderId, message);
                 model.setTimestamp(new Date().getTime());
-
                 // setting empty after sending message
-                binding.etMessage.setText("");
 
+                binding.etMessage.setText("");
                 // creating child on database & creating separate node on firebase
                 // getReference to store anything on database
-                // sender on success listner
+                // sender on success listener
 
                 database.getReference().child("chats")
                         // creating sender + receiver
@@ -113,11 +136,6 @@ public class ChatDetailActivity extends AppCompatActivity {
 
                             }
                         });
-
-
-
-
-
 
 
             }

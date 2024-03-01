@@ -2,34 +2,33 @@ package com.surajinfotech.whatsapp.Models;
 
 public class MessageModel {
 
-    String uId, message;
+    String userId, message;
     Long timestamp;
 
     // Creating Constructor
 
-    public MessageModel(String uId, String message, Long timestamp) {
-        this.uId = uId;
+    public MessageModel(String userId, String message, Long timestamp) {
+        this.userId = userId;
         this.message = message;
         this.timestamp = timestamp;
     }
 
     // Creating Constructor for only msg & Id
-    public MessageModel(String uId, String message) {
-        this.uId = uId;
+    public MessageModel(String userId, String message) {
+        this.userId = userId;
         this.message = message;
     }
-
 
     // Creating Empty Constructor
     public MessageModel(){}
 
     // Creating Setter & Getter
-    public String getuId() {
-        return uId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setuId(String uId) {
-        this.uId = uId;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getMessage() {

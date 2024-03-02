@@ -1,5 +1,6 @@
 package com.surajinfotech.whatsapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -9,7 +10,10 @@ import android.view.View;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import com.surajinfotech.whatsapp.Adapters.ChatAdapter;
 import com.surajinfotech.whatsapp.Models.MessageModel;
@@ -22,7 +26,6 @@ public class ChatDetailActivity extends AppCompatActivity {
 
     ActivityChatDetailBinding binding;
 
-    // receive user data in Chat Detail Activity
     FirebaseDatabase database;
     FirebaseAuth auth;
 
@@ -34,22 +37,19 @@ public class ChatDetailActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
-        // data receiving on string from Firebase Auth
-        // bring receiver id from firebase
-        final String senderId = auth.getUid();
-        // bring receiver id from adapter
-        String receiveId = getIntent().getStringExtra("userId");
 
-        // bring data from Firebase auth
-        String userName = getIntent().getStringExtra("username");
-        String profilePic = getIntent().getStringExtra("profilePic");
+        // Receive data from Firebase
+
+        final String senderId = auth.getUid();
+        final String receiveId = getIntent().getStringExtra("userId");
+        final String userName =  getIntent().getStringExtra("userName");
+        final String profilePic = getIntent().getStringExtra("profilePic");
 
         // setting data
+
         binding.chatUserName.setText(userName);
-        // getting image using Picasso
         Picasso.get().load(profilePic).placeholder(R.drawable.avatar).into(binding.profileImage);
 
-        // to move back
         binding.backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,68 +58,58 @@ public class ChatDetailActivity extends AppCompatActivity {
             }
         });
 
-        //
         final ArrayList<MessageModel> messageModels = new ArrayList<>();
         final ChatAdapter chatAdapter = new ChatAdapter(messageModels, this);
-        // setting up adapter on Recycler View
         binding.chatRecyclerView.setAdapter(chatAdapter);
-
-        //setting up layout manager 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         binding.chatRecyclerView.setLayoutManager(layoutManager);
 
-        // setting for setOnClickListener sending button
-
         final String senderRoom = senderId + receiveId;
         final String receiverRoom = receiveId + senderId;
+
         binding.send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // setup chat message
-
                 String message = binding.etMessage.getText().toString();
-
-                //getting date & timestamp
-
                 final MessageModel model = new MessageModel(senderId, message);
                 model.setTimestamp(new Date().getTime());
-
-                // setting empty after sending message
                 binding.etMessage.setText("");
 
-                // creating child on database & creating separate node on firebase
-                // getReference to store anything on database
-                // sender on success listner
-
-                database.getReference().child("chats")
-                        // creating sender + receiver
-                        .child(senderRoom)
-                        //creating node using push() method
-                        .push()
-                        .setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
+                database.getReference().child("chats").child(senderRoom).push().setValue(model)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
-                            public void onSuccess(Void unused) {
-                                // receiver
-                                database.getReference().child("chats")
-                                        .child(receiverRoom)
-                                        .push()
-                                        .setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            public void onSuccess(Void aVoid) {
+                                database.getReference().child("chats").child(receiverRoom).push().setValue(model)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
-                                            public void onSuccess(Void unused) {
-
+                                            public void onSuccess(Void aVoid) {
                                             }
                                         });
-
                             }
                         });
+            }
+        });
 
+        // Fetch and display chat messages from Firebase
+        database.getReference().child("chats").child(senderRoom).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                messageModels.clear();
+                for (DataSnapshot messageSnapshot : snapshot.getChildren()) {
+                    String userId = messageSnapshot.child("userId").getValue(String.class);
+                    String message = messageSnapshot.child("message").getValue(String.class);
+                    Long timestamp = messageSnapshot.child("timestamp").getValue(Long.class);
 
+                    MessageModel messageModel = new MessageModel(userId, message, timestamp);
+                    messageModels.add(messageModel);
+                }
+                chatAdapter.notifyDataSetChanged();
+                binding.chatRecyclerView.smoothScrollToPosition(messageModels.size() - 1);
+            }
 
-
-
-
-
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle errors
             }
         });
     }

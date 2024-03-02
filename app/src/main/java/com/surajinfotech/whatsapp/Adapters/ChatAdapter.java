@@ -15,43 +15,72 @@ import com.surajinfotech.whatsapp.R;
 
 import java.util.ArrayList;
 
-public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ChatAdapter extends RecyclerView.Adapter {
 
-    private ArrayList<MessageModel> messageModels;
-    private Context context;
+    ArrayList<MessageModel> messageModels;
+    Context context;
 
-    // Assign variables for sender and receiver view type
-    private static final int SENDER_VIEW_TYPE = 1;
-    private static final int RECEIVER_VIEW_TYPE = 2;
+    // assign variable for sender and receiver view type
+    int SENDER_VIEW_TYPE = 1;
+    int RECEIVER_VIEW_TYPE = 2;
 
-    // Constructor
+    // creating Constructor
     public ChatAdapter(ArrayList<MessageModel> messageModels, Context context) {
         this.messageModels = messageModels;
         this.context = context;
+
     }
 
+    // creating method by alt + Enter
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflate layout based on view type
-        View view;
-        if (viewType == SENDER_VIEW_TYPE) {
-            view = LayoutInflater.from(context).inflate(R.layout.sample_sender, parent, false);
+        // condition for sender view type
+        if (viewType == SENDER_VIEW_TYPE)
+        {
+            View view = LayoutInflater.from(context).inflate(R.layout.sample_sender, parent, false);
             return new SenderViewHolder(view);
-        } else {
-            view = LayoutInflater.from(context).inflate(R.layout.sample_receiver, parent, false);
-            return new ReceiverViewHolder(view);
         }
+        else {
+            View view = LayoutInflater.from(context).inflate(R.layout.sample_receiver, parent, false);
+            return new ReceiverViewHolder(view);
+
+        }
+
+    }
+
+    // creating separate method
+    // identify view types which for who is user login that is sender_view_type
+    @Override
+    public int getItemViewType(int position) {
+
+        // getting user id from firebase who is login
+        if (messageModels.get(position).getuId().equals(FirebaseAuth.getInstance().getTenantId()))
+
+        {
+            return SENDER_VIEW_TYPE;
+        }
+        else {
+            return RECEIVER_VIEW_TYPE;
+        }
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
+        // identify and setting data msg on view holder  for sender
         MessageModel messageModel = messageModels.get(position);
-        if (holder instanceof SenderViewHolder) {
-            ((SenderViewHolder) holder).bind(messageModel);
-        } else if (holder instanceof ReceiverViewHolder) {
-            ((ReceiverViewHolder) holder).bind(messageModel);
+        if (holder.getClass() == SenderViewHolder.class){
+            ((SenderViewHolder)holder).senderMsg.setText(messageModel.getMessage());
+
         }
+
+        else {
+            // show receiver msg
+            ((ReceiverViewHolder)holder).receiverMsg.setText(messageModel.getMessage());
+        }
+
     }
 
     @Override
@@ -59,50 +88,30 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return messageModels.size();
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        // getting user id from firebase who is login
-        String currentUserId = FirebaseAuth.getInstance().getTenantId();
-        if (currentUserId != null) {
-            String userId = messageModels.get(position).getUserId();
-            if (userId != null && userId.equals(currentUserId)) {
-                return SENDER_VIEW_TYPE;
-            }
-        }
-        return RECEIVER_VIEW_TYPE;
-    }
+    // We are creating 2 View Holder
+    // Creating Receiver View Holder
 
-    // Sender ViewHolder
-    public static class SenderViewHolder extends RecyclerView.ViewHolder {
-        TextView senderMsg, senderTime;
+    public class ReceiverViewHolder extends RecyclerView.ViewHolder {
 
-        public SenderViewHolder(@NonNull View itemView) {
-            super(itemView);
-            senderMsg = itemView.findViewById(R.id.senderText);
-            senderTime = itemView.findViewById(R.id.senderTime);
-        }
-
-        public void bind(MessageModel messageModel) {
-            senderMsg.setText(messageModel.getMessage());
-            // Set timestamp if needed
-            // senderTime.setText(...);
-        }
-    }
-
-    // Receiver ViewHolder
-    public static class ReceiverViewHolder extends RecyclerView.ViewHolder {
         TextView receiverMsg, receiverTime;
-
         public ReceiverViewHolder(@NonNull View itemView) {
             super(itemView);
+
             receiverMsg = itemView.findViewById(R.id.receiverText);
             receiverTime = itemView.findViewById(R.id.receiverTime);
         }
+    }
 
-        public void bind(MessageModel messageModel) {
-            receiverMsg.setText(messageModel.getMessage());
-            // Set timestamp if needed
-            // receiverTime.setText(...);
+    // Creating Sender View Holder
+    public class SenderViewHolder extends RecyclerView.ViewHolder {
+
+        TextView senderMsg, senderTime;
+        public SenderViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            senderMsg = itemView.findViewById(R.id.senderText);
+            senderTime = itemView.findViewById(R.id.senderTime);
+
         }
     }
 }

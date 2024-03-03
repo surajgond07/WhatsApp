@@ -55,7 +55,7 @@ public class ChatAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
 
         // getting user id from firebase who is login
-        if (messageModels.get(position).getUserId().equals(FirebaseAuth.getInstance().getTenantId()))
+        if (messageModels.get(position).getUserId().equals(FirebaseAuth.getInstance().getUid()))
 
         {
             return SENDER_VIEW_TYPE;

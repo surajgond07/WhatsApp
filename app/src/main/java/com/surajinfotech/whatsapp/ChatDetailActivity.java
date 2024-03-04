@@ -1,12 +1,12 @@
 package com.surajinfotech.whatsapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -75,11 +75,13 @@ public class ChatDetailActivity extends AppCompatActivity {
                 model.setTimestamp(new Date().getTime());
                 binding.etMessage.setText("");
 
-                database.getReference().child("chats").child(senderRoom).push().setValue(model)
+                database.getReference().child("chats")
+                        .child(senderRoom).push().setValue(model)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                database.getReference().child("chats").child(receiverRoom).push().setValue(model)
+                                database.getReference().child("chats")
+                                        .child(receiverRoom).push().setValue(model)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
@@ -89,7 +91,6 @@ public class ChatDetailActivity extends AppCompatActivity {
                         });
             }
         });
-
         // getting data from firebase & set on Recycler view
         // Fetch and display chat messages from Firebase
         database.getReference().child("chats").child(senderRoom).addValueEventListener(new ValueEventListener() {
@@ -97,20 +98,19 @@ public class ChatDetailActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 messageModels.clear();
                 for (DataSnapshot messageSnapshot : snapshot.getChildren()) {
-                    String userId = messageSnapshot.child( "userId").getValue(String.class);
+                    String userId = messageSnapshot.child("userId").getValue(String.class);
                     String message = messageSnapshot.child("message").getValue(String.class);
                     Long timestamp = messageSnapshot.child("timestamp").getValue(Long.class);
 
                     MessageModel messageModel = new MessageModel(userId, message, timestamp);
                     messageModels.add(messageModel);
+
+                    // Update receiver's chat room with the same message
+                    database.getReference().child("chats").child(receiverRoom).push().setValue(messageModel);
                 }
-//                for (DataSnapshot snapshot1 : snapshot.getChildren())
-//                {
-//                    MessageModel model = snapshot1.getValue(MessageModel.class);
-//                    messageModels.add(model);
-//                }
                 chatAdapter.notifyDataSetChanged();
-                binding.chatRecyclerView.smoothScrollToPosition(messageModels.size() - 1);
+                // Scroll to the last item in the RecyclerView
+                binding.chatRecyclerView.scrollToPosition(messageModels.size() - 1);
             }
 
             @Override
@@ -120,3 +120,4 @@ public class ChatDetailActivity extends AppCompatActivity {
         });
     }
 }
+

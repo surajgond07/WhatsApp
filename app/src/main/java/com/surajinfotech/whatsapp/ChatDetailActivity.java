@@ -90,19 +90,25 @@ public class ChatDetailActivity extends AppCompatActivity {
             }
         });
 
+        // getting data from firebase & set on Recycler view
         // Fetch and display chat messages from Firebase
         database.getReference().child("chats").child(senderRoom).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 messageModels.clear();
                 for (DataSnapshot messageSnapshot : snapshot.getChildren()) {
-                    String userId = messageSnapshot.child("userId").getValue(String.class);
+                    String userId = messageSnapshot.child( "userId").getValue(String.class);
                     String message = messageSnapshot.child("message").getValue(String.class);
                     Long timestamp = messageSnapshot.child("timestamp").getValue(Long.class);
 
                     MessageModel messageModel = new MessageModel(userId, message, timestamp);
                     messageModels.add(messageModel);
                 }
+//                for (DataSnapshot snapshot1 : snapshot.getChildren())
+//                {
+//                    MessageModel model = snapshot1.getValue(MessageModel.class);
+//                    messageModels.add(model);
+//                }
                 chatAdapter.notifyDataSetChanged();
                 binding.chatRecyclerView.smoothScrollToPosition(messageModels.size() - 1);
             }

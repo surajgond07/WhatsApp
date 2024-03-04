@@ -71,6 +71,7 @@ public class ChatAdapter extends RecyclerView.Adapter {
 
         // identify and setting data msg on view holder  for sender
         MessageModel messageModel = messageModels.get(position);
+
         if (holder.getClass() == SenderViewHolder.class){
             ((SenderViewHolder)holder).senderMsg.setText(messageModel.getMessage());
 
